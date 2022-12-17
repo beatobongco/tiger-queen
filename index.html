@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <title>The Tiger Queen</title>
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        /* body {
+            margin: 1rem;
+        } */
+        html, body, #book {
+            height: 100%;
+        }
+        body {
+            /* overflow: hidden; */
+        }
+        .book {
+            perspective: 600px;
+        }
+        .page {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            /* width: 100vw;
+            height: 90vh; */
+        }
+        .page > div > p {
+            font-size: 24px;
+            line-height: 1.5;
+            margin-top: 0;
+        }
+        .page > div {
+            display: flex;
+            /* align-items: center; */
+            flex-direction: column;
+            justify-content: center;
+            margin: 1rem;
+            height: 100%;
+            max-height: 90%;
+            width: 50%;
+            font-family: 'Merriweather';
+        }
+        .page .image {
+            /* flex-shrink: 1;             */
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .page .text {
+            width: 50%;
+            flex-shrink: 1;
+        }
+        h1 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-family: 'Merriweather';
+            font-size: 42px;
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 32px;
+            font-family: 'Merriweather';
+        }
+        .page .title {
+            width: 100%;
+            text-align: center;
+            align-items: center;
+        }
+        @media screen and (max-width: 1023px) {
+            .page {
+                flex-direction: column;
+                width: 512px;
+                margin: 0 auto;
+            }
+            .page > div {
+                width: 95%;
+                height: 50vh;
+                margin: 0;
+                height: initial;
+            }
+            .page .text {
+                width: 95%;
+            }
+            .page > div > p {
+                font-size: 16px;
+            }
+            .page .image {
+                /* max-width: 768px; */
+                margin-bottom: 10px;
+            }
+            .page img {
+                /* max-height: 45%;
+                max-width: 45%; */
+            }
+        }
+        .page .image {
+            text-align: center;
+        }        
+        .page img {
+            max-width: 100%;
+        }
+        .fade {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .btn-prev {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+        }
+        .btn-next {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- TODO:
+        * turn page sound
+        * use page edges for buttons
+        * audio voice over
+    -->
+    <div class="book-contents">
+    </div>
+    <div class="book" id="book" data-page-number=0>        
+        <template dataset-page-number=0>
+            <div class="title">
+                <h1>The Tiger Queen</h1>
+                <img src="assets/img/tigerqueencover.png">
+                <br><br>
+                <small>written by <a href="https://beatobongco.com">Beato Bongco</a></small>
+                <br>
+                <small>with artwork by Stable Diffusion</small>
+            </div>
+        </template>
+        <template data-page-number=1>
+            <div class="image" bac>
+                <img src="assets/img/rockclimbprincess.png">
+            </div>
+            <div class="text">
+                <p>Once upon a time, in a land far, far away, there lived a beautiful princess with amber hair and eyes.</p>
+                <p>She lived in a kingdom surrounded by the sea, isolated by the tides from the outside world.</p>
+                <p>The princess was gifted by the gods with strength and courage and would often climb the walls of the castle for sport.</p>
+            </div>
+        </template>
+        <template data-page-number=2>
+            <div class="text">
+                <p>One day, she became betrothed to a prince from the same kingdom and she was happy for a time.</p>
+                <p>But because the princess was very beautiful, each day outside the castle there was a long line of suitors bearing gifts from different lands.</p>
+                <p>To protect her, the prince locked her up in a high tower. The princess was sad, as she longed to roam the lands and be free.</p>
+            </div>
+            <div class="image">
+                <img src="assets/img/suitors.png">
+            </div>
+        </template>
+        <template data-page-number=3>
+            <div class="image">
+                <img src="assets/img/land bridge.png">
+            </div>
+            <div class="text">
+                <p>One night, when the moon was full and seemed larger than it had ever been, the princess looked out of the tower’s window and noticed that the tides were very low, revealing a bridge of land leading out of the kingdom.</p>
+                <p>The princess was scared, as she could not swim but because she was brave she climbed down the tower, crossed the land bridge, and left the kingdom.</p>
+            </div>
+        </template>
+        <template data-page-number=4>
+            <div class="text">
+                <p>The princess roamed the world for a year and had many adventures. </p>
+                <p>Sometimes the princess was sad and missed her kingdom and the prince but because of her big heart, she met people from different lands who became her friends and supported her.</p>
+                <p>She learned much about herself and others through her travels.</p>
+            </div>
+            <div class="image">
+                <img src="assets/img/friends.png">
+            </div>
+        </template>
+        <template data-page-number=5>
+            <div class="image">
+                <img src="assets/img/lostman.png">
+            </div>
+            <div class="text">
+                <p>One day, while on an adventure, she met a lost man.</p>
+                <p>He told her his story: he was once a prince, but now his kingdom was in ruins and he had no home to return to. He was traveling in search of a fabled island across the sea, Ayutthaya, to find wisdom.</p>
+                <p>Because the princess was kind, she took pity on him and decided to accompany the man on his journey.</p>
+            </div>
+        </template>
+        <template data-page-number=6>
+            <div class="text">
+                <p>They built a boat and began sailing towards the horizon, not knowing how long the journey would take.</p>
+                <p>Every night, under the stars, the two would talk until they fell asleep. They would find out they had much in common.</p>
+            </div>
+            <div class="image">
+                <img src="assets/img/boat.png">
+            </div>
+        </template>
+        <template data-page-number=7>
+            <div class="image">
+                <img src="assets/img/tonsai.png">
+            </div>
+            <div class="text">
+                <p>After 60 days and 60 nights, they reached a land flanked by mountains and beaches.</p>
+                <p>They explored the land, and found many wild and dangerous animals. </p>
+            </div>
+        </template>
+        <template data-page-number=8>
+            <div class="text">
+                <p>One day, they spied a lone temple on top of a mountain.</p>
+                <p>Since the princess was strong, she began climbing the mountain with ease.</p>
+                <p>The lost man, inspired by her courage, was able to climb up the mountain too.</p>
+            </div>
+            <div class="image">
+                <img src="assets/img/rockclimbing.png">
+            </div>
+        </template>
+        <template data-page-number=9>
+            <div class="image">
+                <img src="assets/img/guanyin.png">
+            </div>
+            <div class="text">
+                <p>They eventually reached the temple, which had many steps leading to the peak. Every hundred steps there lay landings with intricate statues of gods and mythical beasts.</p>
+                <p>They climbed the steps and on top of the temple they found the goddess Guanyin meditating.</p>
+                <p>Upon noticing them, without opening her eyes she said, “Your journey has ended. Take this and surrender.”</p>
+            </div>
+        </template>
+        <template data-page-number=10>
+            <div class="text">
+                <p>The goddess then disappeared and left a golden root at their feet. </p>
+                <p>The princess and the man boiled the root, ate it and were transformed: the princess into a beautiful amber tiger and the man into an elegant white tiger. </p>
+                <p>As tigers, they would play atop the mountain peaks and hunt the bountiful game on the island.</p>
+            </div>
+            <div class="image">
+                <img src="assets/img/2tigers.png">
+            </div>
+        </template>
+        <template data-page-number=11>
+            <div class="image">
+                <img src="assets/img/tigerqueenbig.png">
+            </div>
+            <div class="text">
+                <p>After many years passed, people came to settle in villages around Ayutthaya.</p>
+                <p>Sometimes, villagers would spot an amber tiger in the forest. The tiger would help lead lost travelers out of the forest, or bound down from the mountains to defend the villages from wolves.</p>
+                <p>The villagers eventually came to revere the friendly amber tiger and bestowed upon her the title of “Tiger Queen”.</p>
+            </div>
+        </template>
+        <template data-page-number=12>
+            <div class="text">
+                <p>Some of the villagers say that in the distance they would also see a white tiger watching over the amber one.  </p>
+                <p>Legend has it that when the moon is full and large, if one looks hard enough at the mountain peaks of Ayutthaya, one can see the silhouettes of two tigers playing.</p>
+            </div>
+            <div class="image">
+                <img src="assets/img/tiger.png">
+            </div>
+        </template>
+        <template data-page-number=13>
+            <div class="title">
+                <h2>The End</h2>
+                <img src="assets/img/tiger2.png">
+                <br><br>
+                <small>...or is it just the beginning?</small>
+            </div>
+        </template>
+        <div class="page" id="page"></div>
+        <div class="quiz">
+            <form action="https://asia-east1-tiger-queen.cloudfunctions.net/tiger-queen" method="post">
+                <p>What is the Tiger Queen's next project?</p>
+                <input type="text" name="project">
+                <p>When did the Tiger Queen and the Lost Man become Tigers? (the actual date)</p>
+                <input type="date" name="tigerDate">
+                <p>What does the Lost Man call the Tiger Queen sometimes? (hint: smaller animal than a tiger)</p>
+                <input type="text" name="petName">
+                <input type="submit">
+            </form>
+        </div>
+        <button class="btn-prev">&lt;</button>
+        <button class="btn-next">&gt;</button>
+    </div>
+    <script>
+        let currentPage = 0
+        const minPage = 0
+        const maxPage = 13
+        const page = document.getElementById('page')
+        const TEMPLATES = document.querySelectorAll('.book template')
+        let pageAnimationTimeout = null; 
+        let audio = null;
+
+        function renderPage() {
+            if (audio) {
+                audio.pause()
+            }
+            page.classList.add('fade')
+            pageAnimationTimeout = setTimeout(() => {
+                page.classList.remove('fade')
+                page.innerHTML = TEMPLATES[currentPage].innerHTML
+                if (currentPage > 0) {
+                    if (audio) {
+                        audio.pause()
+                    }
+                    audio = new Audio('assets/audio/test.mp3');
+                    // audio.play();
+                }
+            }, 300)
+        }
+        function nextPage() {
+            if (currentPage + 1 <= maxPage) {
+                currentPage++
+                renderPage()
+            }
+        }
+        function prevPage() {
+            if (currentPage - 1 >= minPage) {
+                currentPage--
+                renderPage()
+            }
+        }
+        document.onkeydown = (e) => {
+            e = e || window.event;
+
+            if (e.keyCode == '37') {
+                prevPage()
+            }
+            else if (e.keyCode == '39') {
+                nextPage()
+            }
+        }
+        renderPage()
+        // document.querySelector('form').addEventListener('submit', function (e) {
+
+        //     //prevent the normal submission of the form
+        //     e.preventDefault();
+        //     console.log(document.querySelectorAll('form input')[0].value)
+        //     console.log(document.querySelectorAll('form input')[1].value)
+        // })
+</script>
+</body>
+</html>
