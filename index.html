@@ -20,6 +20,7 @@
             height: 100%;
         }
         body {
+            font-family: 'Merriweather';
             /* overflow: hidden; */
         }
         .book {
@@ -45,8 +46,7 @@
             margin: 1rem;
             height: 100%;
             max-height: 90%;
-            width: 50%;
-            font-family: 'Merriweather';
+            width: 50%;            
         }
         .page .image {
             /* flex-shrink: 1;             */
@@ -120,6 +120,28 @@
             position: absolute;
             bottom: 1rem;
             right: 1rem;
+        }
+        .quiz-container {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        .quiz {
+            margin: 3rem auto;
+            width: 380px;
+            background-color: rgba(243, 156, 18,1.0);
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .quiz > img {
+            width: 150px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -267,19 +289,24 @@
             </div>
         </template>
         <div class="page" id="page"></div>
-        <div class="quiz">
-            <form action="https://asia-east1-tiger-queen.cloudfunctions.net/tiger-queen" method="post">
-                <p>What is the Tiger Queen's next project?</p>
-                <input type="text" name="project">
-                <p>When did the Tiger Queen and the Lost Man become Tigers? (the actual date)</p>
-                <input type="date" name="tigerDate">
-                <p>What does the Lost Man call the Tiger Queen sometimes? (hint: smaller animal than a tiger)</p>
-                <input type="text" name="petName">
-                <input type="submit">
-            </form>
+        <div class="quiz-container" id="quiz">
+            <div class="quiz">
+                <h3>The Trial of Guanyin</h3>
+                <img src="assets/img/guanyin.png">
+                <p>The Goddess Guanyin appears in a puff of smoke and says,</p> 
+                <p>"Dear reader, prove to me you are the Tiger Queen and you shall receive a blessing dear to your heart."</p>
+                <p>"What is the Tiger Queen's next project?"</p>
+                <input type="text" id="project">
+                <p>"When did the Tiger Queen and the Lost Man become tigers? (the actual date)"</p>
+                <input type="date" id="tigerDate">
+                <p>"What does the Lost Man call the Tiger Queen sometimes? (hint: smaller animal than a tiger)"</p>
+                <input type="text" id="petName">
+                <br><br>
+                <button onclick="submitAnswers()">Surrender</button>
+            </div>
         </div>
-        <button class="btn-prev">&lt;</button>
-        <button class="btn-next">&gt;</button>
+        <button class="btn-prev" onclick="prevPage()">&lt;</button>
+        <button class="btn-next" onclick="nextPage()">&gt;</button>
     </div>
     <script>
         let currentPage = 0
@@ -289,6 +316,9 @@
         const TEMPLATES = document.querySelectorAll('.book template')
         let pageAnimationTimeout = null; 
         let audio = null;
+
+        const quiz = document.getElementById('quiz');
+        let quizTimeout = null;
 
         function renderPage() {
             if (audio) {
@@ -306,6 +336,16 @@
                     // audio.play();
                 }
             }, 300)
+            if (currentPage === maxPage) {
+                quizTimeout = setTimeout(() => {
+                    quiz.style.display = 'block'
+                }, 1000)
+            } else {
+                if (quizTimeout) {
+                    clearTimeout(quizTimeout)
+                }
+                quiz.style.display = 'none'
+            }
         }
         function nextPage() {
             if (currentPage + 1 <= maxPage) {
@@ -330,13 +370,20 @@
             }
         }
         renderPage()
-        // document.querySelector('form').addEventListener('submit', function (e) {
-
-        //     //prevent the normal submission of the form
-        //     e.preventDefault();
-        //     console.log(document.querySelectorAll('form input')[0].value)
-        //     console.log(document.querySelectorAll('form input')[1].value)
-        // })
+        function submitAnswers() {
+            let formData = new FormData();
+            ['project', 'tigerDate', 'petName'].forEach(v => {
+                formData.append(v, document.getElementById(v).value)
+            })
+            fetch("https://asia-east1-tiger-queen.cloudfunctions.net/tiger-queen",
+                {
+                    body: formData,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    method: "post"
+                }).then(resp => {
+                    console.log(resp.text())
+                });
+        }
 </script>
 </body>
 </html>
