@@ -312,7 +312,8 @@
         const TEMPLATES = document.querySelectorAll('.book template')
         let pageAnimationTimeout = null; 
         let audio = null;
-        let pageTurnAudio = new Audio('assets/audio/page-flip.mp3')
+        const pageTurnAudio = new Audio('assets/audio/page-flip.mp3')
+        const magicPoofAudio = new Audio('assets/audio/magic-poof.mp3')
 
         const quiz = document.getElementById('quiz');
         let quizTimeout = null;
@@ -331,12 +332,13 @@
                     if (audio) {
                         audio.pause()
                     }
-                    audio = new Audio('assets/audio/test.mp3');
+                    // audio = new Audio('assets/audio/test.mp3');
                     // audio.play();
                 }
             }, 300)
             if (currentPage === maxPage) {
                 quizTimeout = setTimeout(() => {
+                    magicPoofAudio.play()
                     quiz.style.display = 'block'
                 }, 5000)
             } else {
