@@ -21,12 +21,13 @@
         }
         body {
             font-family: 'Merriweather';
-            overflow: hidden;
+            /* overflow: hidden; */
         }
         .page {
             display: flex;
             align-items: center;
             height: 100%;
+            padding-bottom: 2rem;
             /* width: 100vw;
             height: 90vh; */
         }
@@ -75,7 +76,8 @@
             .page {
                 flex-direction: column;
                 width: 512px;
-                margin: 0 auto;
+                margin-left: auto;
+                margin-right: auto;
             }
             .page > div {
                 width: 95%;
@@ -96,6 +98,7 @@
         @media screen and (max-width: 576px) {
             .page {
                 width: 100%;
+                height: initial;
             }
         }
         .page .image {
@@ -109,12 +112,12 @@
             transition: opacity 0.3s;
         }
         .btn-prev {
-            position: absolute;
+            position: fixed;
             bottom: 1rem;
             left: 1rem;
         }
         .btn-next {
-            position: absolute;
+            position: fixed;
             bottom: 1rem;
             right: 1rem;
         }
@@ -139,6 +142,9 @@
             height: auto;
             display: block;
             margin: 0 auto;
+        }
+        .text > p:last-of-type {
+            margin-bottom: 0;
         }
     </style>
 </head>
