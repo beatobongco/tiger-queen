@@ -21,10 +21,7 @@
         }
         body {
             font-family: 'Merriweather';
-            /* overflow: hidden; */
-        }
-        .book {
-            perspective: 600px;
+            overflow: hidden;
         }
         .page {
             display: flex;
@@ -83,7 +80,7 @@
             .page > div {
                 width: 95%;
                 height: 50vh;
-                margin: 0;
+                /* margin: 0; */
                 height: initial;
             }
             .page .text {
@@ -93,12 +90,12 @@
                 font-size: 16px;
             }
             .page .image {
-                /* max-width: 768px; */
                 margin-bottom: 10px;
             }
-            .page img {
-                /* max-height: 45%;
-                max-width: 45%; */
+        }
+        @media screen and (max-width: 576px) {
+            .page {
+                width: 100%;
             }
         }
         .page .image {
@@ -151,8 +148,6 @@
         * use page edges for buttons
         * audio voice over
     -->
-    <div class="book-contents">
-    </div>
     <div class="book" id="book" data-page-number=0>        
         <template dataset-page-number=0>
             <div class="title">
@@ -339,7 +334,7 @@
             if (currentPage === maxPage) {
                 quizTimeout = setTimeout(() => {
                     quiz.style.display = 'block'
-                }, 1000)
+                }, 5000)
             } else {
                 if (quizTimeout) {
                     clearTimeout(quizTimeout)
@@ -369,21 +364,24 @@
                 nextPage()
             }
         }
-        renderPage()
         function submitAnswers() {
-            let formData = new FormData();
+            let data = {};
             ['project', 'tigerDate', 'petName'].forEach(v => {
-                formData.append(v, document.getElementById(v).value)
+                data[v] = document.getElementById(v).value
             })
             fetch("https://asia-east1-tiger-queen.cloudfunctions.net/tiger-queen",
-                {
-                    body: formData,
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    method: "post"
-                }).then(resp => {
-                    console.log(resp.text())
-                });
+            {
+                body: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json'},
+                method: "post"
+            }).then(resp => {
+                // TODO: output response to UI
+                resp.json().then(parsed => {
+                    console.log(parsed)
+                })
+            });
         }
-</script>
+        renderPage()
+    </script>
 </body>
 </html>
