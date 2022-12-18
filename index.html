@@ -71,37 +71,7 @@
             width: 100%;
             text-align: center;
             align-items: center;
-        }
-        @media screen and (max-width: 1023px) {
-            .page {
-                flex-direction: column;
-                width: 512px;
-                margin-left: auto;
-                margin-right: auto;
-                height: 100%;
-            }
-            .page > div {
-                width: 95%;
-                height: 50vh;
-                /* margin: 0; */
-                height: initial;
-            }
-            .page .text {
-                width: 95%;
-            }
-            .page > div > p {
-                font-size: 16px;
-            }
-            .page .image {
-                margin-bottom: 10px;
-            }
-        }
-        @media screen and (max-width: 576px) {
-            .page {
-                width: 100%;
-                height: initial;
-            }
-        }
+        }        
         .page .image {
             text-align: center;
         }        
@@ -160,6 +130,40 @@
             position: fixed;
             bottom: 0.6rem;
             left: 50%;
+            background-color: white;
+        }
+        @media screen and (max-width: 1023px) {
+            .page {
+                flex-direction: column;
+                width: 512px;
+                margin-left: auto;
+                margin-right: auto;
+                height: 100%;
+            }
+            .page > div {
+                width: 95%;
+                height: 50vh;
+                /* margin: 0; */
+                height: initial;
+            }
+            .page .text {
+                width: 95%;
+            }
+            .page > div > p {
+                font-size: 16px;
+            }
+            .page .image {
+                margin-bottom: 10px;
+            }
+        }
+        @media screen and (max-width: 576px) {
+            .page {
+                width: 100%;
+                height: initial;
+            }
+            .quiz {
+                margin: 1rem auto 3rem;
+            }
         }
     </style>
 </head>

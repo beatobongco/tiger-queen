@@ -54,7 +54,7 @@ function addSwipeEvent(theDom, eventName, handleEvent) {
 
         var moveVal = eEnd-eStart;
         var moveAbsVal = Math.abs(moveVal);
-        const THRESHOLD = 0;
+        const THRESHOLD = 20;
         console.log(eEnd, eStart, moveAbsVal)
 
         // swipeUp
