@@ -311,19 +311,23 @@
         <button class="btn-next" onclick="nextPage()">&gt;</button>
     </div>
     <script>
+        const TEMPLATES = document.querySelectorAll('.book template')
+        
         let currentPage = 0
+        
         const minPage = 0
         const maxPage = 13
         const page = document.getElementById('page')
-        const TEMPLATES = document.querySelectorAll('.book template')
+        
         let pageAnimationTimeout = null; 
+        let quizTimeout = null;
+
         let audio = null;
         const pageTurnAudio = new Audio('assets/audio/page-flip.mp3')
         const magicPoofAudio = new Audio('assets/audio/magic-poof.mp3')
-
+        const magicWandAudio = new Audio('assets/audio/magic-wand.mp3')
         const quiz = document.getElementById('quiz');
-        let quizTimeout = null;
-
+        
         function renderPage() {
             pageTurnAudio.currentTime = 0;
             pageTurnAudio.play();
@@ -389,11 +393,12 @@
             }).then(resp => {
                 resp.json().then(parsed => {
                     const {error, message} = parsed;
+                    if (message) {
+                        magicWandAudio.play()
+                        quiz.style.display = 'none'
+                    }
                     if (error || message) {
                         alert(error || message)
-                    }
-                    if (message) {
-                        quiz.style.display = 'none'
                     }
                 })
             });
