@@ -298,6 +298,7 @@
                 <input type="text" id="petName">
                 <br><br>
                 <button onclick="submitAnswers()">Surrender</button>
+                <button onclick="closeQuiz()">I'm not the Tiger Queen</button>
             </div>
         </div>
         <button class="btn-prev" onclick="prevPage()">&lt;</button>
@@ -317,6 +318,7 @@
         let quizTimeout = null;
 
         function renderPage() {
+            pageTurnAudio.currentTime = 0;
             pageTurnAudio.play();
             if (audio) {
                 audio.pause()
@@ -387,6 +389,10 @@
                     }
                 })
             });
+        }
+        function closeQuiz() {
+            alert("I see. Thank you for your honesty!")
+            quiz.style.display = 'none'
         }
         renderPage()
     </script>
