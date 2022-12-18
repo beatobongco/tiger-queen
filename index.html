@@ -26,7 +26,7 @@
         .page {
             display: flex;
             align-items: center;
-            height: 100%;
+            height: 90%;
             padding-bottom: 2rem;
             /* width: 100vw;
             height: 90vh; */
@@ -78,6 +78,7 @@
                 width: 512px;
                 margin-left: auto;
                 margin-right: auto;
+                height: 100%;
             }
             .page > div {
                 width: 95%;
@@ -154,6 +155,11 @@
             padding: 8px 16px;
             text-decoration: none;
             cursor: pointer;
+        }
+        #pageNumber {
+            position: fixed;
+            bottom: 0.6rem;
+            left: 50%;
         }
     </style>
 </head>
@@ -318,7 +324,9 @@
         </div>
         <button class="btn-nav btn-prev" onclick="prevPage()">‹</button>
         <button class="btn-nav btn-next" onclick="nextPage()">›</button>
+        <p id="pageNumber"></p>
     </div>
+    <script src="assets/js/swipe.js"></script>
     <script>
         const TEMPLATES = document.querySelectorAll('.book template')
         
@@ -375,6 +383,8 @@
                 }
                 quiz.style.display = 'none'
             }
+            const pageNumber = document.getElementById('pageNumber')
+            pageNumber.innerHTML = currentPage + 1
         }
         function nextPage() {
             if (currentPage + 1 <= maxPage) {
@@ -388,6 +398,9 @@
                 renderPage()
             }
         }
+        const book = document.getElementById('book')
+        addSwipeEvent(book, "swipeLeft", nextPage)
+        addSwipeEvent(book, "swipeRight", prevPage)
         document.onkeydown = (e) => {
             e = e || window.event;
 
