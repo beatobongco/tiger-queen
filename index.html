@@ -311,11 +311,13 @@
         const TEMPLATES = document.querySelectorAll('.book template')
         let pageAnimationTimeout = null; 
         let audio = null;
+        let pageTurnAudio = new Audio('assets/audio/page-flip.mp3')
 
         const quiz = document.getElementById('quiz');
         let quizTimeout = null;
 
         function renderPage() {
+            pageTurnAudio.play();
             if (audio) {
                 audio.pause()
             }
@@ -375,9 +377,14 @@
                 headers: {'Content-Type': 'application/json'},
                 method: "post"
             }).then(resp => {
-                // TODO: output response to UI
                 resp.json().then(parsed => {
-                    console.log(parsed)
+                    const {error, message} = parsed;
+                    if (error || message) {
+                        alert(error || message)
+                    }
+                    if (message) {
+                        quiz.style.display = 'none'
+                    }
                 })
             });
         }
