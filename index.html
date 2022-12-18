@@ -353,6 +353,7 @@
 
         let audio = null;
         const pageTurnAudio = new Audio('assets/audio/page-flip.mp3')
+        pageTurnAudio.load()
         const magicPoofAudio = new Audio('assets/audio/magic-poof.mp3')
         const magicWandAudio = new Audio('assets/audio/magic-wand.mp3')
         const quiz = document.getElementById('quiz');
@@ -394,6 +395,12 @@
                     clearTimeout(quizTimeout)
                 }
                 quiz.style.display = 'none'
+            }
+            if (currentPage === 12) {
+                magicPoofAudio.load()
+            }
+            if (currentPage === 13) {
+                magicWandAudio.load()
             }
             const pageNumber = document.getElementById('pageNumber')
             pageNumber.innerHTML = currentPage + 1
