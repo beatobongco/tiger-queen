@@ -13,23 +13,20 @@
         *, *:before, *:after {
             box-sizing: border-box;
         }
-        /* body {
-            margin: 1rem;
-        } */
         html, body, #book {
             height: 100%;
         }
         body {
             font-family: 'Merriweather';
-            /* overflow: hidden; */
         }
         .page {
             display: flex;
             align-items: center;
-            height: 90%;
-            padding-bottom: 2rem;
-            /* width: 100vw;
-            height: 90vh; */
+            justify-content: center;
+            padding-bottom: 2.5rem;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         .page > div > p {
             font-size: 24px;
@@ -38,16 +35,12 @@
         }
         .page > div {
             display: flex;
-            /* align-items: center; */
             flex-direction: column;
             justify-content: center;
             margin: 1rem;
-            height: 100%;
-            max-height: 90%;
             width: 50%;            
         }
         .page .image {
-            /* flex-shrink: 1;             */
             max-width: 100%;
             max-height: 100%;
         }
@@ -71,13 +64,15 @@
             width: 100%;
             text-align: center;
             align-items: center;
-        }        
+        }
         .page .image {
             text-align: center;
         }        
         .page img {
             max-width: 100%;
-        }
+            width: auto;
+            max-height: calc(100vh - 210px);
+        }   
         .fade {
             opacity: 0;
             transition: opacity 0.3s;
@@ -151,7 +146,6 @@
             .page > div {
                 width: 95%;
                 height: 50vh;
-                /* margin: 0; */
                 height: initial;
             }
             .page .text {
@@ -167,20 +161,18 @@
         @media screen and (max-width: 576px) {
             .page {
                 width: 100%;
-                height: initial;
+                height: 100%;
             }
             .quiz {
                 margin: 1rem auto 3rem;
+            }
+            .page img {
+                height: initial;
             }
         }
     </style>
 </head>
 <body>
-    <!-- TODO:
-        * turn page sound
-        * use page edges for buttons
-        * audio voice over
-    -->
     <div class="book" id="book" data-page-number=0>        
         <template dataset-page-number=0>
             <div class="title">
